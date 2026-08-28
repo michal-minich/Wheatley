@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "extends": "local.json",
+  "console": {
+    "command": "client-tools",
+    "profile": "tooltest",
+    "device_id": "console-smoke",
+    "client_tools": {
+      "once": true,
+      "dry_run": true,
+      "idle_timeout_seconds": 3
+    }
+  }
+}

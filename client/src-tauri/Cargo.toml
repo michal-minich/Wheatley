@@ -1,0 +1,16 @@
+[package]
+name = "wheatley-client"
+version = "0.1.0"
+description = "Thin native client for the Wheatley family server"
+authors = ["Michal Minich"]
+edition = "2024"
+
+[lib]
+name = "wheatley_client_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.3", features = [] }
+
+[dependencies]
+tauri = { version = "2.11.5", features = [] }

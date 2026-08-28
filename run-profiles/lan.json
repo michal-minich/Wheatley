@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "extends": "local.json",
+  "shared": {
+    "api": {
+      "listen_host": "0.0.0.0",
+      "client_host": "127.0.0.1",
+      "port": 8765
+    }
+  },
+  "server": {
+    "cors_origin": "${WHEATLEY_NATIVE_ORIGIN}"
+  }
+}

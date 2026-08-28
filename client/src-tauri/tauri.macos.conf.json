@@ -1,0 +1,8 @@
+{
+  "bundle": {
+    "macOS": {
+      "infoPlist": "Info.macos.plist",
+      "minimumSystemVersion": "13.0"
+    }
+  }
+}

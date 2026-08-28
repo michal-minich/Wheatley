@@ -1,0 +1,133 @@
+{
+  "master_gain_db": -12.0,
+  "tracks": [
+    {
+      "code": "poor-but-happy",
+      "revision": "1",
+      "title": "Poor, But Happy",
+      "artist": "HoliznaCC0",
+      "file": "poor-but-happy.mp3",
+      "gain_db": -8.34
+    },
+    {
+      "code": "a-little-shade",
+      "revision": "1",
+      "title": "A Little Shade",
+      "artist": "HoliznaCC0",
+      "file": "a-little-shade.mp3",
+      "gain_db": -6.51
+    },
+    {
+      "code": "busted-jazz",
+      "revision": "1",
+      "title": "Busted Jazz",
+      "artist": "HoliznaCC0",
+      "file": "busted-jazz.mp3",
+      "gain_db": -7.78
+    },
+    {
+      "code": "waiting-around",
+      "revision": "1",
+      "title": "Waiting Around (LoFi, Calm)",
+      "artist": "HoliznaCC0",
+      "file": "waiting-around.mp3",
+      "gain_db": -6.69
+    },
+    {
+      "code": "jazz-improvisation-looped",
+      "revision": "1",
+      "title": "jazz improvisation looped",
+      "artist": "Alex McCulloch (Pro Sensory)",
+      "file": "jazz-improvisation-looped.mp3",
+      "gain_db": -1.80
+    },
+    {
+      "code": "so-broke",
+      "revision": "1",
+      "title": "So Broke",
+      "artist": "HoliznaCC0",
+      "file": "so-broke.mp3",
+      "gain_db": -7.17
+    },
+    {
+      "code": "morning-coffee",
+      "revision": "1",
+      "title": "Morning Coffee",
+      "artist": "HoliznaCC0",
+      "file": "morning-coffee.mp3",
+      "gain_db": -5.31
+    },
+    {
+      "code": "mundane",
+      "revision": "1",
+      "title": "Mundane",
+      "artist": "HoliznaCC0",
+      "file": "mundane.mp3",
+      "gain_db": -2.91
+    },
+    {
+      "code": "seasons-change",
+      "revision": "1",
+      "title": "Seasons Change",
+      "artist": "HoliznaCC0",
+      "file": "seasons-change.mp3",
+      "gain_db": -6.59
+    },
+    {
+      "code": "calm-currents",
+      "revision": "1",
+      "title": "Calm Currents",
+      "artist": "HoliznaCC0",
+      "file": "calm-currents.mp3",
+      "gain_db": -2.49
+    },
+    {
+      "code": "peaceful-drift",
+      "revision": "1",
+      "title": "Peaceful Drift",
+      "artist": "HoliznaCC0",
+      "file": "peaceful-drift.mp3",
+      "gain_db": -1.77
+    },
+    {
+      "code": "roof-tops",
+      "revision": "1",
+      "title": "Roof Tops",
+      "artist": "HoliznaCC0",
+      "file": "roof-tops.mp3",
+      "gain_db": -2.67
+    },
+    {
+      "code": "summer-felt-longer-then",
+      "revision": "1",
+      "title": "Summer Felt Longer Then",
+      "artist": "HoliznaCC0",
+      "file": "summer-felt-longer-then.mp3",
+      "gain_db": 2.67
+    },
+    {
+      "code": "the-last-long-day",
+      "revision": "1",
+      "title": "The Last Long Day",
+      "artist": "HoliznaCC0",
+      "file": "the-last-long-day.mp3",
+      "gain_db": -3.26
+    },
+    {
+      "code": "august-never-lasts",
+      "revision": "1",
+      "title": "August Never Lasts",
+      "artist": "HoliznaCC0",
+      "file": "august-never-lasts.mp3",
+      "gain_db": -5.53
+    },
+    {
+      "code": "faded-in-the-sunlight",
+      "revision": "1",
+      "title": "Faded in the Sunlight",
+      "artist": "HoliznaCC0",
+      "file": "faded-in-the-sunlight.mp3",
+      "gain_db": -1.73
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "server": {
+    "profiles_root": "${WHEATLEY_PROFILES_ROOT}",
+    "codex_workspace_root": "${WHEATLEY_CODEX_WORKSPACE_ROOT}",
+    "codex_socket": "${WHEATLEY_CODEX_SOCKET}"
+  }
+}

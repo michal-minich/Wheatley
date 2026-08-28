@@ -1,0 +1,281 @@
+{
+  "pi": {
+    "command": "pi",
+    "max_concurrent_runs": 4,
+    "image_long_edge_px": 1024
+  },
+  "reasoning": {
+    "default_mode": "off",
+    "memory_mode": "high",
+    "prewarm_mode": "off"
+  },
+  "generation": {
+    "max_output_tokens": 8192,
+    "models": {
+      "lmstudio/unsloth/qwen3.8-27b": {
+        "sampling": {
+          "non_thinking": {
+            "temperature": 0.7,
+            "top_p": 0.8,
+            "top_k": 20,
+            "presence_penalty": 1.5,
+            "repetition_penalty": 1.0
+          },
+          "thinking": {
+            "temperature": 0.6,
+            "top_p": 0.95,
+            "top_k": 20,
+            "presence_penalty": 0.0,
+            "repetition_penalty": 1.0
+          }
+        }
+      }
+    }
+  },
+  "session": {
+    "prompt_prewarm_enabled": false,
+    "resume": {
+      "yes_words": {
+        "en": "yes",
+        "sk": "áno,ano",
+        "de": "ja"
+      },
+      "no_words": {
+        "en": "no",
+        "sk": "nie",
+        "de": "nein"
+      },
+      "yes_answers": {
+        "en": "yeah,yep,yup,sure",
+        "sk": "hej",
+        "de": "jawohl,klar,gerne"
+      },
+      "no_answers": {
+        "en": "nope,nah,now,know,done,none",
+        "sk": "ne",
+        "de": "nee,nö"
+      }
+    }
+  },
+  "memory": {
+    "auto_enabled": true,
+    "auto_trigger_bytes": 8192,
+    "auto_max_pending_hours": 24,
+    "models": [
+      "lmstudio/ornith-1.5-35b-a3b",
+      "lmstudio/unsloth/qwen3.8-27b",
+      "lmstudio/gemma-4-31b-it"
+    ]
+  },
+  "runtime": {
+    "response_music_delay_ms": 5000
+  },
+  "screen_capture": {
+    "model_pixels_per_logical_pixel": 1.0,
+    "model_max_long_edge_px": 2560
+  },
+  "image_generation": {
+    "endpoint": "http://127.0.0.1:8790",
+    "request_timeout_seconds": 600,
+    "presets": {
+      "low": {
+        "square": { "width": 512, "height": 512 },
+        "landscape": { "width": 624, "height": 416 },
+        "portrait": { "width": 416, "height": 624 }
+      },
+      "medium": {
+        "square": { "width": 1024, "height": 1024 },
+        "landscape": { "width": 1248, "height": 832 },
+        "portrait": { "width": 832, "height": 1248 }
+      },
+      "high": {
+        "square": { "width": 2048, "height": 2048 },
+        "landscape": { "width": 2048, "height": 1376 },
+        "portrait": { "width": 1376, "height": 2048 }
+      }
+    }
+  },
+  "profiles": {
+    "wheatley": {
+      "thinking_music_index": 0,
+      "accent": "sky",
+      "auto_speak": false,
+      "play_music": false,
+      "keep_microphone_on": true,
+      "reasoning_mode": "off",
+      "activity_pane_open": false,
+      "show_thinking": true,
+      "show_compacted_context": false,
+      "language": "",
+      "model": ""
+    }
+  },
+  "audio": {
+    "vad": {
+      "threshold": 0.01,
+      "start_threshold": 0.02,
+      "continue_threshold": 0.006,
+      "noise_floor_start_multiplier": 2.5,
+      "noise_floor_continue_multiplier": 1.35,
+      "noise_floor_alpha": 0.08,
+      "continue_threshold_scale": 0.6
+    },
+    "endpoint": {
+      "min_speech_seconds": 0.45,
+      "max_wait_seconds": 30,
+      "pre_roll_seconds": 0.25,
+      "trailing_silence_keep_seconds": 1,
+      "trailing_silence_keep_cap_seconds": 2.0,
+      "max_utterance_seconds": 600
+    },
+    "partial_transcript": {
+      "interval_seconds": 0.5,
+      "min_audio_seconds": 0.2
+    },
+    "preview": {
+      "stable_min_audio_seconds": 2.5,
+      "mutable_min_audio_seconds": 10.0,
+      "stable_min_words": 5,
+      "mutable_min_words": 18,
+      "soft_boundary_window_seconds": 24.0,
+      "max_mutable_window_seconds": 30.0,
+      "stable_prompt_words": 75,
+      "voice_grace_seconds": 2.0
+    },
+    "session_resume": {
+      "min_speech_seconds": 0.15,
+      "silence_seconds": 0.8,
+      "max_wait_seconds": 10.0,
+      "trailing_silence_keep_seconds": 0.3,
+      "max_utterance_seconds": 5.0,
+      "partial_transcript": {
+        "interval_seconds": 0.2,
+        "min_audio_seconds": 0.15
+      }
+    },
+    "draft_endpoint": {
+      "stable_min_seconds": 4.0
+    },
+    "spoken_submit": {
+      "confirmation_count": 2
+    },
+    "final_selection": {
+      "min_draft_words": 4,
+      "max_weak_final_words": 3,
+      "draft_word_advantage": 4,
+      "coverage_min_audio_seconds": 30.0,
+      "coverage_slack_ms": 5000,
+      "weak_voice_seconds": 0.8,
+      "weak_voice_ratio": 0.15
+    }
+  },
+  "language": {
+    "enabled": true,
+    "default": "en",
+    "supported": "en,sk,de",
+    "languages": {
+      "en": {
+        "response_language": "English",
+        "stt_language": "en",
+        "tts_backend": "piper",
+        "tts_voice": "Daniel",
+        "tts_piper_model": "models/piper/en_GB-alan-medium.onnx",
+        "tts_length_scale": 0.85,
+        "tts_noise_scale": 0.72,
+        "tts_noise_w_scale": 0.82,
+        "tts_sentence_silence": 0,
+        "tts_volume": 1.05
+      },
+      "sk": {
+        "response_language": "Slovak",
+        "stt_language": "sk",
+        "tts_backend": "supertonic",
+        "tts_voice": "M2",
+        "tts_piper_model": "models/piper/sk_SK-lili-medium.onnx",
+        "tts_length_scale": 0.84,
+        "tts_noise_scale": 0.66,
+        "tts_noise_w_scale": 0.78,
+        "tts_sentence_silence": 0.04,
+        "tts_volume": 1.05,
+        "tts_supertonic_voice": "M2",
+        "tts_supertonic_speed": 0.95,
+        "tts_supertonic_steps": 12
+      },
+      "de": {
+        "response_language": "German",
+        "stt_language": "de",
+        "tts_backend": "supertonic",
+        "tts_voice": "M2",
+        "tts_supertonic_voice": "M2",
+        "tts_supertonic_speed": 0.95,
+        "tts_supertonic_steps": 12
+      }
+    }
+  },
+  "stt": {
+    "preview": {
+      "type": "local_whisper_cpp",
+      "server_binary": "whisper-server",
+      "model": "models/whisper/ggml-small.bin",
+      "beam_size": 1,
+      "max_context_tokens": -1
+    },
+    "final": {
+      "type": "local_whisper_cpp",
+      "server_binary": "whisper-server",
+      "model": "models/whisper/ggml-large-v3.bin",
+      "beam_size": 3,
+      "max_context_tokens": 0
+    },
+    "request_timeout_seconds": 600
+  },
+  "tts": {
+    "enabled": true,
+    "backend": "piper",
+    "voice": "Daniel",
+    "assistant_opus_bitrate_kbps": 24,
+    "piper_binary": "piper",
+    "piper_model": "models/piper/en_GB-alan-medium.onnx",
+    "piper_config": null,
+    "piper_speaker": null,
+    "length_scale": 0.62,
+    "noise_scale": 0.72,
+    "noise_w_scale": 0.82,
+    "sentence_silence": 0,
+    "volume": 1.05,
+    "request_timeout_seconds": 120,
+    "supertonic_python": "environments/tts/bin/python",
+    "supertonic_voice": "M2",
+    "supertonic_speed": 0.95,
+    "supertonic_steps": 12,
+    "piper_pronunciation_replacements": {}
+  },
+  "tools": {
+    "max_calls_per_turn": 12,
+    "available": {
+      "read": false,
+      "write": false,
+      "edit": false,
+      "bash": false,
+      "web_search": true,
+      "fetch_content": true,
+      "remember": true,
+      "capture_photo": false,
+      "capture_screen": true,
+      "codex_message": false,
+      "codex_status": false,
+      "generate_image": false,
+      "image_search": true,
+      "scheduled_tasks": true
+    }
+  },
+  "clients": {
+    "web": {
+      "last_used_profile_id": "wheatley",
+      "speech_commit_delay_seconds": 6,
+      "output_recovery_ms": 2500,
+      "thinking_music_fade_in_ms": 500,
+      "thinking_music_fade_out_ms": 200
+    }
+  }
+}

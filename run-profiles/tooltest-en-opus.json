@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "extends": "local.json",
+  "console": { "profile": "tooltest", "device_id": "console-tooltest" }
+}

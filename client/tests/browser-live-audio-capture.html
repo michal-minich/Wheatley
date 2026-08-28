@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser live audio capture test</title>
+</head>
+<body>
+  <h1>Browser live audio capture test</h1>
+  <button id="run" type="button">Run synthetic capture test</button>
+  <pre id="result">Ready.</pre>
+  <script type="module">
+    import { BrowserLiveAudioCapture } from "../src/audio/BrowserLiveAudioCapture.ts";
+    import {
+      canKeepMicrophoneOn,
+      keepMicrophoneOpenBetweenTurns,
+    } from "../src/audio/MicrophonePolicy.ts";
+    import { ChatComposer } from "../src/ui/ChatComposer.ts";
+    import { installTranslation } from "../src/ui/UiText.ts";
+
+    const result = document.querySelector("#result");
+    const runButton = document.querySelector("#run");
+    const sources = [];
+    let getUserMediaCalls = 0;
+
+    function check(condition, message) {
+      if (!condition) throw new Error(message);
+    }
+
+    function socket() {
+      return {
+        readyState: WebSocket.OPEN,
+        bufferedAmount: 0,
+        frames: 0,
+        send() { this.frames++; },
+      };
+    }
+
+    async function syntheticStream() {
+      const context = new AudioContext();
+      const oscillator = context.createOscillator();
+      const destination = context.createMediaStreamDestination();
+      oscillator.connect(destination);
+      oscillator.start();
+      sources.push({ context, oscillator });
+      return destination.stream;
+    }
+
+    navigator.mediaDevices.getUserMedia = async () => {
+      getUserMediaCalls++;
+      return await syntheticStream();
+    };
+
+    const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+
+    async function run() {
+      runButton.disabled = true;
+      result.textContent = "Running...";
+      try {
+      const policyCases = [
+        [true, false, false, true],
+        [false, false, false, false],
+        [true, true, false, false],
+        [true, false, true, false],
+        [false, true, true, false],
+      ];
+      for (const [preference, music, speech, expected] of policyCases) {
+        check(
+          keepMicrophoneOpenBetweenTurns(preference, music, speech) === expected,
+          `Unexpected policy for ${preference}/${music}/${speech}`,
+        );
+      }
+      check(canKeepMicrophoneOn(false, false), "Menu should be available without output.");
+      check(!canKeepMicrophoneOn(true, false), "Music should hide the menu item.");
+      check(!canKeepMicrophoneOn(false, true), "Speech should hide the menu item.");
+      installTranslation("en", await (await fetch("/api/translations/en")).json());
+      testContinuousWaveform();
+
+      const capture = new BrowserLiveAudioCapture();
+      const first = socket();
+      const second = socket();
+      check(!await capture.start(first, "synthetic-one"), "First capture unexpectedly reused.");
+      await wait(300);
+      check(first.frames > 0, "First candidate received no generated audio frames.");
+      const firstFrames = first.frames;
+      check(capture.readPeak() > 0, "Active capture exposed no waveform peak.");
+      const detached = capture.release(first, "synthetic-one", true);
+      check(detached !== undefined, "First capture did not detach.");
+      check(detached.contextClosed === undefined, "Detached capture closed its context.");
+      await wait(300);
+      check(first.frames === firstFrames, "Detached socket continued receiving frames.");
+      check(capture.readPeak() > 0, "Detached continuous capture froze its waveform peak.");
+
+      check(await capture.start(second, "synthetic-two"), "Second candidate did not reuse capture.");
+      check(getUserMediaCalls === 1, "Capture requested a second physical media stream.");
+      check(second.frames > 0, "Audio recorded during handoff was not replayed.");
+      const handoffFrames = second.frames;
+      await wait(300);
+      check(second.frames > handoffFrames, "Second candidate received no live audio frames.");
+      const secondFrames = second.frames;
+      check(
+        capture.stopIfOwnedOrIdle(first, "synthetic-one") === undefined,
+        "Older candidate stopped the newer capture.",
+      );
+      await wait(100);
+      check(second.frames > secondFrames, "Newer capture stopped after stale release.");
+      const stopped = capture.release(second, "synthetic-two", false);
+      check(stopped?.contextClosed !== undefined, "Hard release did not close the context.");
+      await stopped.contextClosed;
+
+      const third = socket();
+      check(!await capture.start(third, "synthetic-three"), "Hard release kept capture alive.");
+      check(getUserMediaCalls === 2, "Hard release did not reacquire a physical stream.");
+      await wait(200);
+      check(third.frames > 0, "Reacquired capture received no frames.");
+      const finalStop = capture.stop();
+      check(finalStop?.contextClosed !== undefined, "Final capture did not hard stop.");
+      await finalStop.contextClosed;
+
+      result.dataset.status = "passed";
+      result.textContent = JSON.stringify({
+        status: "passed",
+        getUserMediaCalls,
+        firstFrames,
+        handoffFrames,
+        secondFrames: second.frames,
+        thirdFrames: third.frames,
+      }, null, 2);
+      } catch (error) {
+        result.dataset.status = "failed";
+        result.textContent = error instanceof Error ? error.stack : String(error);
+      } finally {
+        for (const source of sources) {
+          source.oscillator.stop();
+          await source.context.close();
+        }
+      }
+    }
+    runButton.addEventListener("click", () => void run());
+
+    function testContinuousWaveform() {
+      const model = {
+        id: "synthetic-model",
+        provider: "synthetic",
+        model: "synthetic-model",
+        name: "Synthetic model",
+        reasoning: false,
+        reasoningModes: ["off"],
+        vision: false,
+        contextWindow: 4096,
+      };
+      const composer = new ChatComposer({
+        onSend: async () => true,
+        onStop() {},
+        onStartLiveListening() {},
+        onCancelLiveListening() {},
+        onSubmitLiveListening() {},
+        onToggleReasoning() {},
+        onModelChange() {},
+        onImageSelected() {},
+        onInteraction() {},
+      }, { readPeak: () => 0.5 }, [model]);
+      document.body.append(composer.element);
+      const waveform = composer.element.querySelector(".composer-recording-waveform");
+      check(waveform !== null, "Composer has no recording waveform.");
+      composer.render("live-listening", true, "en", "Tooltest", model.id,
+        "off", undefined, false);
+      check(!waveform.classList.contains("composer-recording-waveform-sending"),
+        "Listening waveform unexpectedly entered sending mode.");
+      composer.render("live-transcribing", true, "en", "Tooltest", model.id,
+        "off", undefined, false);
+      check(!waveform.classList.contains("composer-recording-waveform-sending"),
+        "Continuous handoff froze the waveform in sending mode.");
+      composer.render("live-transcribing", false, "en", "Tooltest", model.id,
+        "off", undefined, false);
+      check(waveform.classList.contains("composer-recording-waveform-sending"),
+        "Hard-suspend transcription should use sending mode.");
+      composer.element.remove();
+    }
+  </script>
+</body>
+</html>

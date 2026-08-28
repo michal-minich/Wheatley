@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "extends": "local.json",
+  "console": {
+    "command": "chat"
+  }
+}

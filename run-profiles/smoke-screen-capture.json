@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "extends": "local.json",
+  "console": {
+    "profile": "wheatley",
+    "device_id": "console-screen-smoke",
+    "command": "chat",
+    "client_tools": {
+      "once": false,
+      "dry_run": true,
+      "poll_ms": 100,
+      "idle_timeout_seconds": 0
+    }
+  }
+}

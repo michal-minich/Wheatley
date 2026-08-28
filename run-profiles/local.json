@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "shared": {
+    "api": {
+      "listen_host": "127.0.0.1",
+      "client_host": "127.0.0.1",
+      "port": 8765
+    },
+    "app_data_root": "${WHEATLEY_APP_DATA_ROOT}"
+  },
+  "server": {
+    "config": "${WHEATLEY_CONFIG_PATH}",
+    "profiles_root": "${WHEATLEY_PROFILES_ROOT}",
+    "codex_workspace_root": "${WHEATLEY_CODEX_WORKSPACE_ROOT}",
+    "codex_socket": "${WHEATLEY_CODEX_SOCKET}",
+    "cors_origin": "",
+    "deployment": {
+      "composition": "standalone_local"
+    },
+    "conversation": {
+      "placement": "local",
+      "remote_api_base": "${WHEATLEY_CONVERSATION_REMOTE_API_BASE}"
+    },
+    "sync": {
+      "upstream_api_base": "${WHEATLEY_SYNC_UPSTREAM_API_BASE}",
+      "interval_seconds": 30
+    }
+  },
+  "web": {
+    "open_browser": false
+  },
+  "console": {
+    "command": "voice",
+    "profile": "wheatley",
+    "device_id": "console-wheatley",
+    "language": "en",
+    "load_memory": true,
+    "speech_interrupt": false,
+    "speech_interrupt_phrases": ["stop speaking", "stop"],
+    "turns": 0,
+    "audio_input": "",
+    "tts_playback_command": "",
+    "audio": {
+      "format": "opus",
+      "bitrate": 32000,
+      "frame_ms": 20,
+      "application": "audio",
+      "complexity": 3,
+      "container": "ogg-opus",
+      "simulate_upload_kbps": 0
+    },
+    "client_tools": {
+      "once": false,
+      "dry_run": false,
+      "poll_ms": 500,
+      "idle_timeout_seconds": 0
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "extends": "hybrid.json",
+  "shared": {
+    "api": {
+      "listen_host": "127.0.0.1",
+      "client_host": "127.0.0.1",
+      "port": 8765
+    }
+  },
+  "server": {
+    "conversation": {
+      "placement": "remote",
+      "remote_api_base": "${WHEATLEY_CONVERSATION_REMOTE_API_BASE}"
+    }
+  }
+}

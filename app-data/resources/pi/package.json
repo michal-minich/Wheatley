@@ -1,0 +1,10 @@
+{
+  "name": "wheatley-pi-extensions",
+  "private": true,
+  "scripts": {
+    "test": "node --test extensions/wheatley-tools.test.mjs"
+  },
+  "dependencies": {
+    "pi-web-access": "0.15.0"
+  }
+}

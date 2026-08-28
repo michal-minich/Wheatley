@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "extends": "wheatley-sk-opus.json",
+  "console": {
+    "audio": {
+      "format": "pcm_s16le",
+      "bitrate": 0,
+      "application": "",
+      "complexity": 0,
+      "container": ""
+    }
+  }
+}

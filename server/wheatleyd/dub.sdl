@@ -1,0 +1,49 @@
+name "wheatleyd"
+description "Wheatley local-first assistant server and console client"
+license "MIT"
+
+dependency "vibe-d" version="~>0.10.3"
+
+configuration "debug" {
+    targetType "executable"
+    targetName "wheatleyd"
+    sourcePaths "source"
+    mainSourceFile "source/wheatley/server/app.d"
+    excludedSourceFiles "source/wheatley/client/console/app.d"
+    excludedSourceFiles "source/wheatley/codex_worker/app.d"
+    buildType "debug"
+    dflags "-preview=dip1000"
+}
+
+configuration "release" {
+    targetType "executable"
+    targetName "wheatleyd"
+    sourcePaths "source"
+    mainSourceFile "source/wheatley/server/app.d"
+    excludedSourceFiles "source/wheatley/client/console/app.d"
+    excludedSourceFiles "source/wheatley/codex_worker/app.d"
+    buildType "release"
+    dflags "-preview=dip1000"
+}
+
+configuration "console" {
+    targetType "executable"
+    targetName "wheatley"
+    sourcePaths "source"
+    mainSourceFile "source/wheatley/client/console/app.d"
+    excludedSourceFiles "source/wheatley/server/app.d"
+    excludedSourceFiles "source/wheatley/codex_worker/app.d"
+    buildType "debug"
+    dflags "-preview=dip1000"
+}
+
+configuration "codex-worker" {
+    targetType "executable"
+    targetName "wheatley-codexd"
+    sourcePaths "source"
+    mainSourceFile "source/wheatley/codex_worker/app.d"
+    excludedSourceFiles "source/wheatley/server/app.d"
+    excludedSourceFiles "source/wheatley/client/console/app.d"
+    buildType "release"
+    dflags "-preview=dip1000"
+}

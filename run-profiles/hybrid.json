@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "extends": "local.json",
+  "shared": {
+    "api": {
+      "listen_host": "127.0.0.1",
+      "client_host": "127.0.0.1",
+      "port": 8765
+    }
+  },
+  "server": {
+    "deployment": {
+      "composition": "synced_hybrid"
+    }
+  }
+}
